@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
+import '../../Widgets/sizedBox.dart';
+
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -32,7 +34,51 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             sigmaY: 30
           ),child: SizedBox(),),),
 
-         
+          SafeArea(child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: Column(
+              children: [
+                SizedBox(
+                  width: 260,
+                  child: Column(
+                    children: [
+                      Text("Learn design & Code",style: TextStyle(
+                        fontSize: 60,
+                        fontFamily: "Poppins",
+                        height: 1.2,
+                      ),),
+                      height16,
+                      Text(
+                                "Don’t skip design. Learn design and code, by building real apps with Flutter and Swift. Complete courses about the best tools.",
+                              ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 64,
+                  width: 260,
+                  child: Stack(
+                    children: [
+                      RiveAnimation.asset("assets/RiveAssets/button.riv",),
+                      Positioned.fill(
+                        top: 8,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.arrow_forward),
+                            width8,
+                            Text("Start the course",style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                            ),),
+                          ],
+                        ),
+                      )
+                    ],
+                  )),
+
+              ],
+            ),
+          ),),
         ],
       
     ),);
