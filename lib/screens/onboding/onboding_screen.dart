@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rive/rive.dart';
 
 import '../../Widgets/sizedBox.dart';
+import 'Components/signIn_form.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -79,88 +80,49 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     flex: 2,
                   ),
 
-                  SizedBox(
-                     height: 54,
-          width: 260,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        backgroundColor: Colors.white
-                      ),
-                      onPressed: (){
-                         showGeneralDialog(
-                          barrierDismissible: true,
-                          barrierLabel: "Sign In",
-                            context: context,
-                            pageBuilder:
-                                (context, _, __) {
-                              return Center(
-                                child: Container(
-                                  height: 620,
-                                  margin: EdgeInsets.symmetric(horizontal: 16),
-                                  padding: EdgeInsets.symmetric(vertical: 32,horizontal: 24),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(40),
-                                     boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.3),
-                                    offset: const Offset(0, 30),
-                                    blurRadius: 60,
-                                  ),
-                                     ],
-                                  ),
-                                  child: Scaffold(
-                                    backgroundColor: Colors.transparent,
-                                    body: Column(
-                                      children: [
-                                        Text(
-                      "Sign in",
-                      style: TextStyle(
-                        fontSize: 34,
-                        fontFamily: "Poppins",
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Text(
-                        "Access to 240+ hours of content. Learn design and code, by building real apps with Flutter and Swift.",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    SignInForm(),
-                                      ],
-                                    ),
+                          SizedBox(
+                             height: 54,
+                  width: 260,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                     topLeft: Radius.circular(10),
+                topRight: Radius.circular(25),
+                bottomLeft: Radius.circular(25),
+                bottomRight: Radius.circular(25),
                                   ),
                                 ),
-                              );
-                            });
-                      },child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.arrow_forward,color: Colors.black,),
-                      width8,
-                      Text(
-                        "Start the course",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black
-                        ),
-                      ),
-                    ],
-                                  ),),
-                  ),
-                // height4,
-                //   AnimatedButton(
-                //     buttonController: buttonController,
-                //     press: () {
-                //       buttonController.isActive = true;
-                     
-                //     },
-                //   ),
+                                backgroundColor: Colors.white
+                              ),
+                              onPressed: (){
+                                 customSignInDialog(context);
+                              },child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.arrow_forward,color: Colors.black,),
+                              width8,
+                              Text(
+                                "Start the course",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black
+                                ),
+                              ),
+                            ],
+                                          ),),
+                          ),
+                  // height4,
+                  // AnimatedButton(
+                  //   buttonController: buttonController,
+                  //   press: () {
+                  //     buttonController.isActive = true;
+                  //     //show dialog after button animation
+                  //     Future.delayed(Duration(milliseconds: 800), () {
+                  //       customSignInDialog(context);
+                  //     });
+                  //   },
+                  // ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 24),
                     child: Text(
@@ -174,46 +136,123 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ),
     );
   }
-}
 
-class SignInForm extends StatelessWidget {
-  const SignInForm({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-      Text("Email",style: TextStyle(
-        color: Colors.black54
-      ),),
-      Padding(
-        padding: const EdgeInsets.only(top:8.0,bottom: 16),
-        child: TextFormField(
-          decoration: InputDecoration(
-            prefixIcon: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 8),
-              child: SvgPicture.asset("assets/icons/email.svg"),
-            )
-          ),
-        ),
-      ),
-      Text("Password",style: TextStyle(
-        color: Colors.black54
-      ),),
-      Padding(
-        padding: const EdgeInsets.only(top:8.0,bottom: 16),
-        child: TextFormField(
-          decoration: InputDecoration(
-            prefixIcon: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 8),
-              child: SvgPicture.asset("assets/icons/password.svg"),
-            )
-          ),
-        ),
-      ),
-    ],),);
+  Future<Object?> customSignInDialog(BuildContext context) {
+    return showGeneralDialog(
+        barrierDismissible: true,
+        barrierLabel: "Sign In",
+        context: context,
+        pageBuilder: (context, _, __) {
+          return Center(
+            child: Container(
+              height: 620,
+              margin: EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.symmetric(vertical: 32, horizontal: 24),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.94),
+                borderRadius: BorderRadius.circular(40),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    offset: const Offset(0, 30),
+                    blurRadius: 60,
+                  ),
+                ],
+              ),
+              child: Scaffold(
+                backgroundColor: Colors.transparent,
+                body: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          "Sign in",
+                          style: TextStyle(
+                            fontSize: 34,
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          child: Text(
+                            "Access to 240+ hours of content. Learn design and code, by building real apps with Flutter and Swift.",
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        SignInForm(),
+                        Row(
+                          children: [
+                            Expanded(child: Divider()),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Text(
+                                "OR",
+                                style: TextStyle(
+                                  color: Colors.black26,
+                                ),
+                              ),
+                            ),
+                            Expanded(child: Divider()),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Text(
+                            "Sign up with Email,Apple or Google",
+                            style: TextStyle(
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            IconButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {},
+                                icon: SvgPicture.asset(
+                                  "assets/icons/email_box.svg",
+                                  height: 60,
+                                  width: 60,
+                                )),
+                            IconButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {},
+                                icon: SvgPicture.asset(
+                                  "assets/icons/apple_box.svg",
+                                  height: 60,
+                                  width: 60,
+                                )),
+                            IconButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {},
+                                icon: SvgPicture.asset(
+                                  "assets/icons/google_box.svg",
+                                  height: 60,
+                                  width: 60,
+                                ))
+                          ],
+                        )
+                      ],
+                    ),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: -48,
+                      child: CircleAvatar(
+                        radius: 16,
+                        backgroundColor: Colors.white,
+                        child: Icon(Icons.close),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 }
