@@ -80,38 +80,41 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     flex: 2,
                   ),
 
-                          SizedBox(
-                             height: 54,
-                  width: 260,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                     topLeft: Radius.circular(10),
-                topRight: Radius.circular(25),
-                bottomLeft: Radius.circular(25),
-                bottomRight: Radius.circular(25),
-                                  ),
-                                ),
-                                backgroundColor: Colors.white
-                              ),
-                              onPressed: (){
-                                 customSignInDialog(context);
-                              },child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.arrow_forward,color: Colors.black,),
-                              width8,
-                              Text(
-                                "Start the course",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black
-                                ),
-                              ),
-                            ],
-                                          ),),
+                  SizedBox(
+                    height: 54,
+                    width: 260,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(25),
+                              bottomLeft: Radius.circular(25),
+                              bottomRight: Radius.circular(25),
+                            ),
                           ),
+                          backgroundColor: Colors.white),
+                      onPressed: () {
+                        customSignInDialog(context);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Colors.black,
+                          ),
+                          width8,
+                          Text(
+                            "Start the course",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   // height4,
                   // AnimatedButton(
                   //   buttonController: buttonController,
@@ -142,6 +145,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         barrierDismissible: true,
         barrierLabel: "Sign In",
         context: context,
+        //Slide animation for dialog
+        transitionBuilder: (context, animation, secondaryAnimation, child) {
+          Tween<Offset> tween;
+          tween = Tween(begin: Offset(-1, 0), end: Offset.zero);
+          return SlideTransition(
+              position: tween.animate(
+                  CurvedAnimation(parent: animation, curve: Curves.easeInOut),),
+                  child: child,);
+        },
         pageBuilder: (context, _, __) {
           return Center(
             child: Container(
