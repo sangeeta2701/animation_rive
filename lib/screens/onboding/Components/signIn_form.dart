@@ -16,14 +16,44 @@ class _SignInFormState extends State<SignInForm> {
   late SMITrigger check;
   late SMITrigger error;
   late SMITrigger reset;
+  late SMITrigger confetti;
 
   bool isShowLoading = false;
+  bool isShowConfetti = false;
 
   StateMachineController getRiveController(Artboard artboard) {
     StateMachineController? controller =
         StateMachineController.fromArtboard(artboard, "State Machine 1");
     artboard.addController(controller!);
     return controller;
+  }
+
+  void signIn(BuildContext context) {
+    setState(() {
+      isShowLoading = true;
+      isShowConfetti = true;
+    });
+    Future.delayed(Duration(seconds: 1), () {
+      if (_formKey.currentState!.validate()) {
+        // success
+        check.fire();
+        Future.delayed(Duration(seconds: 2), () {
+          setState(() {
+            isShowLoading = false;
+          });
+        });
+
+        confetti.fire();
+      } else {
+        //error
+        error.fire();
+        Future.delayed(Duration(seconds: 2), () {
+          setState(() {
+            isShowLoading = false;
+          });
+        });
+      }
+    });
   }
 
   @override
@@ -94,28 +124,7 @@ class _SignInFormState extends State<SignInForm> {
                   ),
                   onPressed: () {
                     //show the loading animation when button is clicked
-                    setState(() {
-                      isShowLoading = true;
-                    });
-                    Future.delayed(Duration(seconds: 1), () {
-                      if (_formKey.currentState!.validate()) {
-                        // success
-                        check.fire();
-                        // Future.delayed(Duration(seconds: 2), () {
-                        //   setState(() {
-                        //     isShowLoading = false;
-                        //   });
-                        // });
-                      } else {
-                        //error
-                        error.fire();
-                        // Future.delayed(Duration(seconds: 2), () {
-                        //   setState(() {
-                        //     isShowLoading = false;
-                        //   });
-                        // });
-                      }
-                    });
+                    signIn(context);
                   },
                   icon: Icon(
                     Icons.arrow_forward,
@@ -138,6 +147,22 @@ class _SignInFormState extends State<SignInForm> {
                     error = controller.findSMI("Error") as SMITrigger;
                     reset = controller.findSMI("Reset") as SMITrigger;
                   },
+                ),
+              )
+            : SizedBox(),
+        isShowConfetti
+            ? CustomPositioned(
+                child: Transform.scale(
+                  scale: 7,
+                  child: RiveAnimation.asset(
+                    "assets/RiveAssets/confetti.riv",
+                    onInit: (artboard) {
+                      StateMachineController controller =
+                          getRiveController(artboard);
+                      confetti =
+                          controller.findSMI("Trigger explosion") as SMITrigger;
+                    },
+                  ),
                 ),
               )
             : SizedBox(),
