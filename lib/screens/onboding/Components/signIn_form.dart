@@ -12,7 +12,7 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late SMITrigger check;
   late SMITrigger error;
   late SMITrigger reset;
@@ -21,7 +21,7 @@ class _SignInFormState extends State<SignInForm> {
 
   StateMachineController getRiveController(Artboard artboard) {
     StateMachineController? controller =
-        StateMachineController.fromArtboard(artboard, "state Machine 1");
+        StateMachineController.fromArtboard(artboard, "State Machine 1");
     artboard.addController(controller!);
     return controller;
   }
@@ -31,6 +31,7 @@ class _SignInFormState extends State<SignInForm> {
     return Stack(
       children: [
         Form(
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -42,7 +43,7 @@ class _SignInFormState extends State<SignInForm> {
                 padding: const EdgeInsets.only(top: 8.0, bottom: 16),
                 child: TextFormField(
                   validator: (value) {
-                    if (value!.isNotEmpty) {
+                    if (value!.isEmpty) {
                       return "";
                     }
                     return null;
@@ -63,7 +64,7 @@ class _SignInFormState extends State<SignInForm> {
                 padding: const EdgeInsets.only(top: 8.0, bottom: 16),
                 child: TextFormField(
                   validator: (value) {
-                    if (value!.isNotEmpty) {
+                    if (value!.isEmpty) {
                       return "";
                     }
                     return null;
@@ -98,21 +99,21 @@ class _SignInFormState extends State<SignInForm> {
                     });
                     Future.delayed(Duration(seconds: 1), () {
                       if (_formKey.currentState!.validate()) {
-                        //success
+                        // success
                         check.fire();
-                        Future.delayed(Duration(seconds: 2), () {
-                          setState(() {
-                            isShowLoading = false;
-                          });
-                        });
+                        // Future.delayed(Duration(seconds: 2), () {
+                        //   setState(() {
+                        //     isShowLoading = false;
+                        //   });
+                        // });
                       } else {
                         //error
                         error.fire();
-                        Future.delayed(Duration(seconds: 2), () {
-                          setState(() {
-                            isShowLoading = false;
-                          });
-                        });
+                        // Future.delayed(Duration(seconds: 2), () {
+                        //   setState(() {
+                        //     isShowLoading = false;
+                        //   });
+                        // });
                       }
                     });
                   },
@@ -157,7 +158,7 @@ class CustomPositioned extends StatelessWidget {
       child: Column(
         children: [
           Spacer(),
-          SizedBox(height: 100, width: 100, child: child),
+          SizedBox(height: size, width: size, child: child),
           Spacer(
             flex: 2,
           ),
