@@ -29,11 +29,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: Stack(
         clipBehavior: Clip.none,
         children: [
-          Positioned(
-              width: MediaQuery.of(context).size.width * 1.7,
-              bottom: 200,
-              left: 100,
-              child: Image.asset("assets/Backgrounds/Spline.png")),
+          // Positioned(
+          //     width: MediaQuery.of(context).size.width * 1.7,
+          //     bottom: 200,
+          //     left: 100,
+          //     child: Image.asset("assets/Backgrounds/Spline.png")),
           Positioned.fill(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 20, sigmaY: 10),
@@ -67,7 +67,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       child: Column(
                         children: [
                           Text(
-                            "Learn design & Code",
+                            "Fit At Home",
                             style: TextStyle(
                               fontSize: 60,
                               fontFamily: "Poppins",
@@ -76,7 +76,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                           height16,
                           Text(
-                            "Don’t skip design. Learn design and code, by building real apps with Flutter and Swift. Complete courses about the best tools.",
+                            "Lose weight and get fit AT HOME with Female Fitness App! NO EQUIPMENT needed and suitable for BOTH BEGINNER AND PRO. Sweat a few minutes a day to get your dream body in weeks! 💪 💪 💪",
                           ),
                         ],
                       ),
@@ -118,7 +118,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                             width8,
                             Text(
-                              "Start the course",
+                              "Start Your Journey",
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black),
